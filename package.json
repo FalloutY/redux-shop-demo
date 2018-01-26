@@ -1,0 +1,26 @@
+{
+  "name": "shop-demo",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "isomorphic-unfetch": "^2.0.0",
+    "lowdb": "^1.0.0",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.14.11",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-scripts": "1.1.0",
+    "redux": "^3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "start:server": "PORT=3001 nodemon server.js",
+    "deploy": "PORT=3001 NODE_ENV=production node server.js"
+  }
+}

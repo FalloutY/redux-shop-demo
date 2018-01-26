@@ -1,0 +1,84 @@
+{
+  "services": [
+    {
+      "id": "netflix",
+      "name": "Netflix",
+      "cost": 10.99,
+      "cycle": "month",
+      "description": "Watch Netflix films & TV programmes online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more.",
+      "logo": "/logos/netflix.png"
+    },
+    {
+      "id": "trello",
+      "name": "Trello",
+      "cost": 9.99,
+      "cycle": "month",
+      "description": "Infinitely flexible. Incredibly easy to use. Great mobile apps. It's free. Trello keeps track of everything, from the big picture to the minute details.",
+      "logo": "/logos/trello.svg"
+    },
+    {
+      "id": "hulu",
+      "name": "Hulu",
+      "cost": 8.00,
+      "cycle": "month",
+      "description": "Watch TV shows and movies online. Stream TV episodes of South Park, Empire, SNL, Modern Family and popular movies on your favorite devices",
+      "logo": "/logos/hulu.png"
+    },
+    {
+      "id": "todoist",
+      "name": "Todoist",
+      "cost": 2.59,
+      "cycle": "month",
+      "description": "Trusted by millions, Todoist is the best online task management app and to do list. For Web, iPhone, iPad, Android, Chrome, Outlook and many more!",
+      "logo": "/logos/todoist.png"
+    },
+    {
+      "id": "evernote",
+      "name": "Evernote",
+      "cost": 3.99,
+      "cycle": "month",
+      "description": "Organize your work and declutter your life. With Evernote on your desktop and mobile devices, your notes are always with you and always in sync.",
+      "logo": "/logos/evernote.png"
+    },
+    {
+      "id": "dropbox",
+      "name": "Dropbox",
+      "cost": 9.99,
+      "cycle": "month",
+      "description": "Dropbox is a modern workspace designed to reduce busywork-so you can focus on the things that matter. Sign in and put your creative energy to work.",
+      "logo": "/logos/dropbox.png"
+    },
+    {
+      "id": "github",
+      "name": "Github",
+      "cost": 7.00,
+      "cycle": "month",
+      "description": "GitHub for teams. A better way to work together. GitHub brings teams together to work through problems, move ideas forward, and learn from each other along the way.",
+      "logo": "/logos/github.png"
+    },    {
+      "id": "spotify",
+      "name": "Spotify",
+      "cost": 9.99,
+      "cycle": "month",
+      "description": "Spotify is a digital music service that gives you access to millions of songs.",
+      "logo": "/logos/spotify.png"
+    },
+    {
+      "id": "harvest",
+      "name": "Harvest",
+      "cost": 14.00,
+      "cycle": "month",
+      "description": "Simple time tracking, fast online invoicing, and powerful reporting software. Simplify employee timesheets and billing.",
+      "logo": "/logos/harvest.png"
+    },
+    {
+      "id": "pocket",
+      "name": "Pocket",
+      "cost": 4.99,
+      "cycle": "month",
+      "description": "A great option for those interested in saving video, images, text and other content, all in one place",
+      "logo": "/logos/pocket.png"
+    }
+  ],
+  "idCounter": 10
+}
