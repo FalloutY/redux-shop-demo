@@ -22,7 +22,7 @@ const actions = {
 
 const asyncActions = {
   getProducts: () => dispatch => {
-    api
+    return api
     .getServices()
     .then(resp => resp.json())
     .then(data => dispatch(actions.addProducts(data)))

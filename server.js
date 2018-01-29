@@ -1,14 +1,18 @@
-require('babel-register')
-const express = require('express')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const dataDefaults = require('./data.defaults.json')
-const renderFullPage = require('./serverUtils');
-const actions = require('./src/actions');
+import express from 'express';
+import  bodyParser from 'body-parser';
+import morgan from 'morgan';
+import dataDefaults from './data.defaults.json';
+import renderFullPage from './serverUtils';
+import { renderToString } from 'react-dom/server';
+import App from './src/App'
+import actions from './src/actions';
+import {createStore, applyMiddleware } from 'redux';
+import  reducer, {initialState} from './src/reducer';
+import { thunk } from './src/middlewares' 
+import { Provider } from 'react-redux';
+import React from 'react';
+
 const app = express()
-
-
-
 
 app.use(bodyParser.urlencoded({ extended: false })) 
 app.use(bodyParser.json())
@@ -24,15 +28,28 @@ const port = process.env.PORT || 3000
 const low = require('lowdb')
 const FileAsync = require('lowdb/adapters/FileAsync')
 
-app.get('/', (req, res) => {
+const handleRender = (req, res) => {
 
-  actions.getProducts()
+  const store = createStore(reducer, initialState, applyMiddleware(thunk));
+  store.dispatch( actions.getProducts() )
     .then(
       () => {
-        res.send(renderFullPage('', {something: 'ok'}));
+        console.log("here");
+        const html = renderToString(
+          <Provider store={store}>
+            <App />
+          </Provider>
+        );
+
+        const finalState = store.getState()
+
+        res.send(renderFullPage(html, finalState));
       }
     )
-})
+    .catch(err => res.send(err));
+}
+
+app.get('/', handleRender);
 
 app.use('/', express.static('build'))
 

@@ -15,12 +15,11 @@ const renderFullPage = (html, preloadedState) => {
         <link rel="stylesheet" href="${assets['main.css']}">
       </head>
       <body>
-        <noscript>
-          You need to enable JavaScript to run this app.
-        </noscript>
-        <div id="root"></div>
+        <div id="root">${html}</div>
+        <script>
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\x3c')}
+        </script>
         <script type="text/javascript" src="${assets['main.js']}"></script>
-        <input id="preloadedState" type="text" value=${JSON.stringify(preloadedState).replace(/</g, '\\x3c')}>
       </body>
     </html>
   `
