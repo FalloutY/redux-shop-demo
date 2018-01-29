@@ -31,16 +31,10 @@ class App extends Component {
 
 const mdp = dispatch => ({
   getProducts() {
-    api
-      .getServices()
-      .then(resp => resp.json())
-      .then(data => dispatch(actions.addProducts(data)))
-      .catch(err => dispatch(actions.addError({ message: "Server Error" })));
+    dispatch(actions.getProducts())
   },
   initCart() {
-    const cart = JSON.parse(window.localStorage.getItem('cart'));
-    console.log(cart);
-    dispatch(actions.initCart(cart));
+    dispatch(actions.initCart())
   }
 })
 
