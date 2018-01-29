@@ -14,6 +14,7 @@ import { Provider, connect } from 'react-redux';
  
 class App extends Component {
   componentDidMount = () => {
+    this.props.initCart();    
     this.props.getProducts();
   };
   render() {
@@ -35,6 +36,11 @@ const mdp = dispatch => ({
       .then(resp => resp.json())
       .then(data => dispatch(actions.addProducts(data)))
       .catch(err => dispatch(actions.addError({ message: "Server Error" })));
+  },
+  initCart() {
+    const cart = JSON.parse(window.localStorage.getItem('cart'));
+    console.log(cart);
+    dispatch(actions.initCart(cart));
   }
 })
 

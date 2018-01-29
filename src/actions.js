@@ -14,5 +14,6 @@ export default {
   addError: makeActionCreator(ActionTypes.ADD_ERROR, 'error'),
   addToCart: makeActionCreator(ActionTypes.ADD_TO_CART, 'product'),
   removeFromCart: makeActionCreator(ActionTypes.REMOVE_FROM_CART, 'product'),
-  checkout: makeActionCreator(ActionTypes.CHECKOUT)
+  checkout: makeActionCreator(ActionTypes.CHECKOUT),
+  initCart: makeActionCreator(ActionTypes.INIT_CART, 'cart')
 }
