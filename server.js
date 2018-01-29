@@ -1,11 +1,14 @@
+require('babel-register')
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const dataDefaults = require('./data.defaults.json')
+const renderFullPage = require('./serverUtils');
+const actions = require('./src/actions');
 const app = express()
 
 
-app.use('/', express.static('build'))
+
 
 app.use(bodyParser.urlencoded({ extended: false })) 
 app.use(bodyParser.json())
@@ -20,6 +23,19 @@ const port = process.env.PORT || 3000
 
 const low = require('lowdb')
 const FileAsync = require('lowdb/adapters/FileAsync')
+
+app.get('/', (req, res) => {
+
+  actions.getProducts()
+    .then(
+      () => {
+        res.send(renderFullPage('', {something: 'ok'}));
+      }
+    )
+})
+
+app.use('/', express.static('build'))
+
 
 
 // Create database instance and start server
