@@ -29,7 +29,7 @@ const asyncActions = {
     .catch(err => dispatch(actions.addError({ message: "Server Error" })));
   },
   initCart: () => dispatch => {
-    const cart = JSON.parse(window.localStorage.getItem('cart'));
+    const cart = JSON.parse(window.localStorage.getItem('cart')) || {};
     dispatch(actions.initCart(cart));
   }
 }
