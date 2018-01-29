@@ -8,6 +8,7 @@ import Checkout from "./Components/Checkout";
 import Appbar from "./Components/AppBar";
 import actions from './actions';
 import reducer, { selectors } from './reducer';
+import { createStore } from 'redux'
 import Connect, { APP_CONTEXT } from './Connect';
 import PropTypes from "prop-types";
 
@@ -15,49 +16,50 @@ import PropTypes from "prop-types";
 
 class App extends Component {
   initialState = { products: [], error: null, cart: {} };
-  state = this.initialState;
-  actions = actions;
-  reducer = reducer;
+  store = createStore(reducer, this.initialState);
   static childContextTypes = {
     [APP_CONTEXT]: PropTypes.object.isRequired
   };
 
   getChildContext() {
     return {
-      [APP_CONTEXT]: this.state
+      [APP_CONTEXT]: this.store.getState()
     };
   }
-  dispatch = action => {
-    console.log("dispatching...", action);
-    this.setState(this.reducer(this.state, action));
-  };
 
   componentDidMount = () => {
+    const dispatch = this.store.dispatch;
     api
       .getServices()
       .then(resp => resp.json())
-      .then(data => this.dispatch(this.actions.addProducts(data)))
-      .catch(err =>
-        this.dispatch(this.actions.addError({ message: "Server Error" }))
+      .then(data => dispatch(actions.addProducts(data)) )
+      .catch(err => dispatch(actions.addError({ message: "Server Error" }))
       );
+    this.unsubscribe = this.store.subscribe(this.forceUpdate.bind(this));
   };
 
+  componentWillUnmount = () => {
+    this.unsubscribe();
+  }
+
   render() {
+    const dispatch = this.store.dispatch;
+    
     return ( 
       <div className="App">
         <Appbar />
         <ProductList
           onAddToCart={product => {
-            this.dispatch(this.actions.addToCart(product));
+            dispatch(actions.addToCart(product));
           }}
           onRemoveFromCart={product => {
-            this.dispatch(this.actions.removeFromCart(product));
+            dispatch(actions.removeFromCart(product));
           }}
         />
         <Cart />
         <Checkout
           onCheckout={() => {
-            this.dispatch(this.actions.checkout());
+            dispatch(actions.checkout());
           }}
         />
       </div>
