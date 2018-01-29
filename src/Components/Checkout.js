@@ -1,4 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import actions from "../actions";
+
+
 
 const Checkout = ({onCheckout}) => (
   <div id="Checkout" >
@@ -15,4 +19,8 @@ const Checkout = ({onCheckout}) => (
   </div>
 );
 
-export default Checkout;
+const mdp = dispatch => ({
+  onCheckout:() => dispatch(actions.checkout())
+})
+
+export default connect(() => ({}), mdp)(Checkout);

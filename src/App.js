@@ -14,40 +14,31 @@ import { Provider, connect } from 'react-redux';
  
 class App extends Component {
   componentDidMount = () => {
-    const {dispatch} = this.props;
-    api
-      .getServices()
-      .then(resp => resp.json())
-      .then(data => dispatch(actions.addProducts(data)))
-      .catch(err => dispatch(actions.addError({ message: "Server Error" })));
+    this.props.getProducts();
   };
-
   render() {
-    const {dispatch} = this.props;
-
     return (
       <div className="App">
         <Appbar />
-        <ProductList
-          onAddToCart={product => {
-            dispatch(actions.addToCart(product));
-          }}
-          onRemoveFromCart={product => {
-            dispatch(actions.removeFromCart(product));
-          }}
-        />
+        <ProductList />
         <Cart />
-        <Checkout
-          onCheckout={() => {
-            dispatch(actions.checkout());
-          }}
-        />
+        <Checkout />
       </div>
     );
   }
 }
 
-const ConnectedApp = connect()(App);
+const mdp = dispatch => ({
+  getProducts() {
+    api
+      .getServices()
+      .then(resp => resp.json())
+      .then(data => dispatch(actions.addProducts(data)))
+      .catch(err => dispatch(actions.addError({ message: "Server Error" })));
+  }
+})
+
+const ConnectedApp = connect(() => ({}), mdp)(App);
 
 const AppWrapped = () => (
   <Provider store={store}>

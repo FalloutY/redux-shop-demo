@@ -1,6 +1,8 @@
 import React from "react";
 import { selectors } from '../reducer';
 import { connect }  from 'react-redux';
+import actions from "../actions";
+
 
 const Product = ({ product, cartItem, onAddToCart, onRemoveFromCart }) => (
   <div className="product__container">
@@ -70,8 +72,15 @@ const ProductList = ({ products, cart, onAddToCart, onRemoveFromCart }) => (
   </div>
 );
 
-export default connect((state) =>({
+
+const msp = (state) => ({
   cart: state.cart,
   products: state.products
-}))(ProductList);
+});
+const mdp = (dispatch) => ({
+  onAddToCart: (product) => dispatch(actions.addToCart(product)),
+  onRemoveFromCart: (product) => dispatch(actions.removeFromCart(product))
+});
+
+export default connect(msp, mdp)(ProductList);
 

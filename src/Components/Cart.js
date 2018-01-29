@@ -29,8 +29,8 @@ const Cart = ({ cartItems }) => (
                 {item.name}
               </div>
               <div className="cart__item_quantity">{item.quantity}</div>
-              <div className="cart__item_price">{item.cost}</div>
-              <div className="cart__item_total">{item.quantity * item.cost}</div>
+              <div className="cart__item_price">{item.cost.toFixed(2)}</div>
+              <div className="cart__item_total">{(item.quantity * item.cost).toFixed(2)}</div>
             </div>
           ))
         }
@@ -43,7 +43,7 @@ const Cart = ({ cartItems }) => (
             </div>
             <div className="cart__item_total">
               {
-                cartItems.reduce((sum, product) => sum + (product.quantity * product.cost), 0)
+                cartItems.reduce((sum, product) => sum + (product.quantity * product.cost), 0).toFixed(2)
               }
             </div>
           </div>
