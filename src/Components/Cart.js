@@ -22,7 +22,7 @@ const Cart = ({ cartItems }) => (
         { 
           cartItems.length > 0 &&
           cartItems.map(item => (
-            <div className="cart__item">
+            <div className="cart__item" key={item.id}>
               <div className="cart__item_name">
                 {item.name}
               </div>
@@ -39,7 +39,11 @@ const Cart = ({ cartItems }) => (
             <div className="cart__item_name">
               Total
             </div>
-            <div className="cart__item_total">76.93</div>
+            <div className="cart__item_total">
+              {
+                cartItems.reduce((sum, product) => sum + (product.quantity * product.cost), 0)
+              }
+            </div>
           </div>
 
         }

@@ -294,3 +294,26 @@ button.cart__checkout {
 .checkout__success {
   margin-bottom: 20px;
 }
+.product__qminus {
+  width: 50px;
+  justify-self: end;
+}
+
+.product__qplus {
+  width: 50px;
+  justify-self: start;
+}
+
+.product__quantity {
+  justify-self: center;
+}
+
+.product__actions__added {
+  display: grid;
+  grid-area: action;
+  grid-template-columns: 2fr 1fr 2fr;
+  font-size: var(--font-size-large);
+  font-weight: 700;
+  width: 100%;
+  align-items: center
+}

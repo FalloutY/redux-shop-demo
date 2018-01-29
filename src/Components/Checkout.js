@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-const Checkout = () => (
+const Checkout = ({onCheckout}) => (
   <div id="Checkout" >
     <div className="checkout__success">
       Checkout Successful
     </div>
     
     <a href="#">
-      <button>
+      <button onClick={() => {onCheckout()}}>
         Go Back to Shopping
       </button>
     </a>
