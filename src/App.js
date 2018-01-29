@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
-import api from "./api";
-import ActionTypes from "./ActionTypes";
 import Cart from "./Components/Cart";
 import ProductList from "./Components/ProductList";
 import Checkout from "./Components/Checkout";
 import Appbar from "./Components/AppBar";
 import actions from "./actions";
-import reducer, { selectors } from "./reducer";
 import store from "./store";
-import PropTypes from "prop-types";
 import { Provider, connect } from 'react-redux';
  
 class App extends Component {

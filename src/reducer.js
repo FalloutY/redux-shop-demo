@@ -36,7 +36,6 @@ const handlers = {
     return { ...state, ...{ error: action.error } };
   },
   [ActionTypes.INIT_CART]: (state, action) => {
-    console.log(action.cart);
     return { ...state, ...{cart: action.cart} };
   }
 };

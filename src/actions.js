@@ -30,7 +30,6 @@ const asyncActions = {
   },
   initCart: () => dispatch => {
     const cart = JSON.parse(window.localStorage.getItem('cart'));
-    console.log(cart);
     dispatch(actions.initCart(cart));
   }
 }
