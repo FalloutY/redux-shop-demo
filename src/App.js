@@ -8,13 +8,25 @@ import Checkout from "./Components/Checkout";
 import Appbar from "./Components/AppBar";
 import actions from './actions';
 import reducer, { selectors } from './reducer';
+import Connect, { APP_CONTEXT } from './Connect';
+import PropTypes from "prop-types";
+
+
 
 class App extends Component {
   initialState = { products: [], error: null, cart: {} };
   state = this.initialState;
   actions = actions;
   reducer = reducer;
+  static childContextTypes = {
+    [APP_CONTEXT]: PropTypes.object.isRequired
+  };
 
+  getChildContext() {
+    return {
+      [APP_CONTEXT]: this.state
+    };
+  }
   dispatch = action => {
     console.log("dispatching...", action);
     this.setState(this.reducer(this.state, action));
@@ -31,12 +43,10 @@ class App extends Component {
   };
 
   render() {
-    return (
+    return ( 
       <div className="App">
-        <Appbar cartItems={selectors.getCartItems(this.state)} />
+        <Appbar />
         <ProductList
-          products={this.state.products}
-          cart={this.state.cart}
           onAddToCart={product => {
             this.dispatch(this.actions.addToCart(product));
           }}
@@ -44,7 +54,7 @@ class App extends Component {
             this.dispatch(this.actions.removeFromCart(product));
           }}
         />
-        <Cart cartItems={selectors.getCartItems(this.state)} />
+        <Cart />
         <Checkout
           onCheckout={() => {
             this.dispatch(this.actions.checkout());

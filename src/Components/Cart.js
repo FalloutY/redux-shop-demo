@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { selectors } from '../reducer';
+import Connect  from '../Connect';
 
 const Cart = ({ cartItems }) => (
   <div id="Cart">
@@ -73,4 +75,7 @@ const Cart = ({ cartItems }) => (
   </div>
 );
 
-export default Cart;
+
+export default Connect(Cart, (state) =>({
+  cartItems: selectors.getCartItems(state)
+}));
