@@ -1,4 +1,4 @@
-import ActionTypes from './ActionTypes';
+import ActionTypes from "./ActionTypes";
 
 const changeCartQuantity = (state, product, changeQuantity) => {
   const productId = product.id;
@@ -19,27 +19,36 @@ const changeCartQuantity = (state, product, changeQuantity) => {
   return { ...state, ...{ cart: newCart } };
 };
 
-const reducer = (state = this.initialState, action) => {
-  switch (action.type) {
-    case ActionTypes.ADD_PRODUCTS:
-      return { ...state, ...{ products: action.products } };
-    case ActionTypes.ADD_TO_CART:
-      return { ...changeCartQuantity(state, action.product, 1) };
-    case ActionTypes.REMOVE_FROM_CART:
-      return { ...changeCartQuantity(state, action.product, -1) };
-    case ActionTypes.CHECKOUT:
-      return { ...state, ...{ cart: {} } };
-    case ActionTypes.ADD_ERROR:
-      return { ...state, ...{ error: action.error } };
-    default:
-      return state;
+const handlers = {
+  [ActionTypes.ADD_TO_CART]: (state, action) => {
+    return { ...changeCartQuantity(state, action.product, 1) };
+  },
+  [ActionTypes.REMOVE_FROM_CART]: (state, action) => {
+    return { ...changeCartQuantity(state, action.product, -1) };
+  },
+  [ActionTypes.ADD_PRODUCTS]: (state, action) => {
+    return { ...state, ...{ products: action.products } };
+  },
+  [ActionTypes.CHECKOUT]: (state, action) => {
+    return { ...state, ...{ cart: {} } };
+  },
+  [ActionTypes.ADD_ERROR]: (state, action) => {
+    return { ...state, ...{ error: action.error } };
   }
 };
+
+const createReducer = (initialState, handlers) => (
+  state = initialState,
+  action
+) =>
+  handlers.hasOwnProperty(action.type)
+    ? handlers[action.type](state, action)
+    : state;
+
+export default createReducer({ products: [], error: null, cart: {} }, handlers);
 
 export const selectors = {
   getCartItems(state) {
     return Object.values(state.cart).filter(f => f);
   }
-}
-
-export default reducer;
+};
