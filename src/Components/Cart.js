@@ -1,6 +1,6 @@
 import React from 'react';
 import { selectors } from '../reducer';
-import Connect  from '../Connect';
+import { connect } from 'react-redux';
 
 const Cart = ({ cartItems }) => (
   <div id="Cart">
@@ -76,6 +76,6 @@ const Cart = ({ cartItems }) => (
 );
 
 
-export default Connect(Cart, (state) =>({
+export default connect((state) =>({
   cartItems: selectors.getCartItems(state)
-}));
+}))(Cart);

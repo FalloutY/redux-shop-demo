@@ -1,6 +1,6 @@
 import React from "react";
 import { selectors } from '../reducer';
-import Connect  from '../Connect';
+import { connect }  from 'react-redux';
 
 const Product = ({ product, cartItem, onAddToCart, onRemoveFromCart }) => (
   <div className="product__container">
@@ -70,8 +70,8 @@ const ProductList = ({ products, cart, onAddToCart, onRemoveFromCart }) => (
   </div>
 );
 
-export default Connect(ProductList, (state) =>({
+export default connect((state) =>({
   cart: state.cart,
   products: state.products
-}));
+}))(ProductList);
 

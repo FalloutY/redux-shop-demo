@@ -6,46 +6,26 @@ import Cart from "./Components/Cart";
 import ProductList from "./Components/ProductList";
 import Checkout from "./Components/Checkout";
 import Appbar from "./Components/AppBar";
-import actions from './actions';
-import reducer, { selectors } from './reducer';
-import { createStore } from 'redux'
-import Connect, { APP_CONTEXT } from './Connect';
+import actions from "./actions";
+import reducer, { selectors } from "./reducer";
+import store from "./store";
 import PropTypes from "prop-types";
-
-
-
+import { Provider, connect } from 'react-redux';
+ 
 class App extends Component {
-  initialState = { products: [], error: null, cart: {} };
-  store = createStore(reducer, this.initialState);
-  static childContextTypes = {
-    [APP_CONTEXT]: PropTypes.object.isRequired
-  };
-
-  getChildContext() {
-    return {
-      [APP_CONTEXT]: this.store.getState()
-    };
-  }
-
   componentDidMount = () => {
-    const dispatch = this.store.dispatch;
+    const {dispatch} = this.props;
     api
       .getServices()
       .then(resp => resp.json())
-      .then(data => dispatch(actions.addProducts(data)) )
-      .catch(err => dispatch(actions.addError({ message: "Server Error" }))
-      );
-    this.unsubscribe = this.store.subscribe(this.forceUpdate.bind(this));
+      .then(data => dispatch(actions.addProducts(data)))
+      .catch(err => dispatch(actions.addError({ message: "Server Error" })));
   };
 
-  componentWillUnmount = () => {
-    this.unsubscribe();
-  }
-
   render() {
-    const dispatch = this.store.dispatch;
-    
-    return ( 
+    const {dispatch} = this.props;
+
+    return (
       <div className="App">
         <Appbar />
         <ProductList
@@ -67,4 +47,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const ConnectedApp = connect()(App);
+
+const AppWrapped = () => (
+  <Provider store={store}>
+    <ConnectedApp />    
+  </Provider>
+)
+
+export default AppWrapped;

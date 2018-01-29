@@ -1,5 +1,5 @@
 import ActionTypes from "./ActionTypes";
-
+export const initialState = { products: [], error: null, cart: {} };
 const changeCartQuantity = (state, product, changeQuantity) => {
   const productId = product.id;
   const newCartItem = state.cart[productId]

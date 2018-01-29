@@ -1,6 +1,6 @@
 import React from 'react'
 import { selectors } from '../reducer';
-import Connect  from '../Connect';
+import { connect }  from 'react-redux';
 
 const Appbar = ({ cartItems }) => (
   <div className="appbar__container">
@@ -31,6 +31,6 @@ const Appbar = ({ cartItems }) => (
   </div>
 )
 
-export default Connect(Appbar, (state) =>({
+export default connect((state) =>({
   cartItems: selectors.getCartItems(state)
-}));
+}))(Appbar);
